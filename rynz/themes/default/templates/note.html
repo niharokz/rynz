@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block main %}
+<article>
+<h1>{{ page.title }}</h1>
+{% if page.date %}
+<p><small><time datetime="{{ page.date | iso }}">{{ page.date | date("%d %b %Y") }}</time> · {{ page.reading_time }} min read
+{%- if config.tags.enabled %}{% for tag in page.tags if tag != config.posts.tag %} · <a href="{{ site.tag_url(tag) }}">#{{ tag }}</a>{% endfor %}{% endif %}</small></p>
+{% endif %}
+{% if page.toc %}
+<details>
+<summary>Contents</summary>
+{{ page.toc }}
+</details>
+{% endif %}
+{{ page.html }}
+{% if page.prev or page.next %}
+<p>{% if page.prev %}← <a href="{{ page.prev.url }}">{{ page.prev.title }}</a>{% endif %}{% if page.prev and page.next %} · {% endif %}{% if page.next %}<a href="{{ page.next.url }}">{{ page.next.title }}</a> →{% endif %}</p>
+{% endif %}
+{% if page.last_updated %}
+<p># Last updated on <time datetime="{{ page.last_updated | iso }}">{{ page.last_updated | date("%d %b %Y") }}</time>.</p>
+{% endif %}
+</article>
+{% endblock %}

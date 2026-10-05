@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block main %}
+<section>
+{{ site.home }}
+{% if site.posts %}
+<h2># notes</h2>
+<ul>
+{% for post in site.posts %}
+<li><time datetime="{{ post.date | iso }}">{{ post.date | date }}</time> -- <a href="{{ post.url }}">{{ post.title }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="{{ config.language }}">
+<head>
+{% include "partials/head.html" %}
+</head>
+<body>
+<header>
+<h1><a href="/">{{ site.title }}</a></h1>
+{% include "partials/nav.html" %}
+</header>
+{% block main %}{% endblock %}
+<footer>
+{% include "partials/footer.html" %}
+</footer>
+</body>
+</html>

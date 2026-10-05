@@ -1,0 +1,26 @@
+# Site settings. Only `title` and `url` are required.
+# Every option is listed in the README: https://gitlab.com/niharokz/rynz#configuration
+title: {{ title }}
+url: {{ url }}
+description: A small website built with rynz.
+author: ""
+language: en
+theme: default
+
+menu:
+  - name: about
+    url: /about.html
+  - name: feed
+    url: /rss.xml
+
+footer_menu:
+  - name: home
+    url: /
+  - name: feed
+    url: /rss.xml
+
+# Turn on extras by uncommenting:
+# tags: true          # a page per tag at /tag/<name>.html
+# archive: true       # /archive.html, posts grouped by year
+# gemini: true        # also build a Gemini capsule in public/gemini/
+# urls: pretty        # flat: /about.html · clean: /about · pretty: /about/

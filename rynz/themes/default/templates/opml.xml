@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+<head>
+<title>{{ site.title | xml }} blogroll</title>
+<dateCreated>{{ site.built | rfc822 }}</dateCreated>
+</head>
+<body>
+{% for entry in entries %}
+<outline type="rss" text="{{ entry.title | xml }}" title="{{ entry.title | xml }}" htmlUrl="{{ entry.url | xml }}"{% if entry.feed %} xmlUrl="{{ entry.feed | xml }}"{% endif %}/>
+{% endfor %}
+</body>
+</opml>

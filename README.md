@@ -1,315 +1,315 @@
+# rynz
 
-# Rynz
+**rynz turns a folder of Markdown files into a plain, fast website.** No JavaScript, no tracking, no build chain: one command and you have HTML you can host anywhere.
 
-🕊️ **Rynz: Really Your Note Zenerator**  
-Rynz is a lightweight, JavaScript-free static site generator crafted for developers who value Markdown, speed, and simplicity. Built with Python and Jinja2, it delivers fast, customizable static websites with an intuitive CLI, optimized page generation, and clean, minimal templates. The main website for the Rynz project is [https://rynz.de](https://rynz.de).
+It powers [nih.ar](https://nih.ar), a personal site that has been online since 2011.
 
+- **Write in Markdown.** Tables, footnotes, task lists and highlighted code work out of the box.
+- **Plain HTML out.** Zero JavaScript, and no CSS classes unless you add them.
+- **Yours to change.** Every template and stylesheet is a normal file you can override.
 
-## Why Choose Rynz?
-- **Blazing Fast**: Optimized page generation for rapid site builds.
-- **No JavaScript**: Lightweight, clean HTML output by default.
-- **Clean Templates**: Streamlined Jinja2 templates for easy customization.
-- **Python-Powered**: Modular, forkable codebase for extensibility.
-- **Markdown-First**: Effortless content creation with Markdown.
-- **Open-Source**: Licensed under the [MIT License](#license).
+---
 
-## Table of Contents
-- [Installation](#installation)
-- [Usage](#usage)
+## Contents
+
+- [Quick start](#quick-start)
+- [Writing a post](#writing-a-post)
+- [Project layout](#project-layout)
 - [Configuration](#configuration)
-- [Folder Structure](#folder-structure)
-- [Advanced Features](#advanced-features)
-- [Example](#example)
-- [Changelog](#changelog)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+- [Commands](#commands)
+- [Templates and themes](#templates-and-themes)
+- [Plugins](#plugins)
+- [Deploying](#deploying)
+- [Upgrading from rynz 1.x](#upgrading-from-rynz-1x)
+- [FAQ](#faq)
 
-## Installation
+---
 
-Install Rynz via `pip` for the latest stable release:
+## Quick start
+
+You need Python 3.10 or newer.
 
 ```bash
 pip install rynz
-```
-
-Or install the development version from GitLab:
-
-```bash
-pip install git+https://gitlab.com/niharokz/rynz
-```
-
-### Prerequisites
-- Python 3.8 or higher
-- `pip` for dependency management
-
-### Dependencies
-Rynz automatically installs:
-- `pyyaml`: Parses `config.yml` and frontmatter.
-- `jinja2`: Powers templating for HTML output.
-- `markdown2`: Converts Markdown to HTML.
-- `rich`: Enhances CLI with colorful output.
-
-## Usage
-
-Rynz provides a streamlined CLI for managing your static site. Run `rynz --help` for details.
-
-```bash
-usage: rynz [-h] [-v] {create,add,deploy,serve,config,test,save} ...
-
-🕊️ Rynz: Really Your Note Zenerator.
-
-positional arguments:
-  {create,add,deploy,serve,config,test,save}
-                        Available commands
-    create              Create a new Rynz project.
-    add                 Create a new note or blog post.
-    deploy              Convert Markdown files into static HTML
-    serve               Serve your site locally at http://localhost:5555
-    config              View or edit site configuration (config.yml)
-    test                Test your Rynz setup and structure
-    save                Save changes with Git (stage and commit)
-
-options:
-  -h, --help            show this help message and exit
-  -v, --version         show program's version number and exit
-```
-
-### 1. Create a New Project
-Initialize a new project with the default structure:
-
-```bash
-rynz create my-site
-```
-
-Sets up `my-site/` with `config.yml`, templates, and content directories.
-
-### 2. Add a New Note or Post
-Create a new Markdown file:
-
-```bash
-rynz add pageName
-```
-
-Generates `content/note/pageName.md` with frontmatter.
-
-### 3. Deploy the Site
-Convert Markdown to static HTML, outputting to `public/`:
-
-```bash
-rynz deploy
-```
-
-### 4. Serve Locally
-Preview your site with a local server:
-
-```bash
+rynz new my-site
+cd my-site
 rynz serve
 ```
 
-Access at [http://localhost:5555](http://localhost:5555). Use a custom port:
+Open http://127.0.0.1:5555. You'll see a working site with a sample post. Every time you save a file, rynz rebuilds the site; refresh the browser to see the change.
+
+When you're ready to publish:
 
 ```bash
-rynz serve -p 8080
+rynz build
 ```
 
-### 5. Manage Configuration
-View or edit `config.yml`:
+The finished site is in `public/`. Upload that folder to any web host.
+
+---
+
+## Writing a post
 
 ```bash
-rynz config
+rynz add "My first post"
 ```
 
-Check `rynz config --help` for specific options.
-
-### 6. Test Your Setup
-Validate your project structure and configuration:
-
-```bash
-rynz test
-```
-
-Ensures no missing files or invalid frontmatter.
-
-### 7. Save Changes with Git
-Stage and commit changes:
-
-```bash
-rynz save
-```
-
-Or commit with a custom message:
-
-```bash
-rynz save -m "Your commit message"
-```
-
-## Configuration
-
-Customize your site with `config.yml` in the project root. Example:
-
-```yaml
-site_title: My Rynz Site
-base_url: https://example.com
-theme: default
-favicon: resource/favicon.ico
-```
-
-Access in templates with Jinja2:
-
-```html
-<link rel="icon" href="{{ config.get('favicon') }}">
-```
-
-## Folder Structure
-
-```bash
-my-site/
-|-- public/                  # Generated HTML output
-|-- config.yml               # Site configuration
-|-- content/                 # Markdown content
-|   |-- header.md           # Header content
-|   |-- footer.md           # Footer content
-|   |-- home.md             # Homepage content
-|   `-- note/               # Individual pages/notes
-|       `-- sample.md
-|-- resource/                # Static assets (CSS, images, etc.)
-|   `-- style.css
-`-- templates/               # Jinja2 templates
-    |-- home_template.html  # Homepage template
-    `-- note_template.html  # Note/page template
-```
-
-### Folder Breakdown
-- **`config.yml`**: Site-wide settings (title, theme, etc.).
-- **`content/`**: Markdown files for pages and notes.
-- **`resource/`**: Static assets (CSS, images, favicon).
-- **`templates/`**: Jinja2 templates for HTML output.
-- **`public/`**: Built site output.
-
-## Advanced Features
-
-### 1. Faster Page Generation
-Rynz v1.0.0 optimizes rendering with streamlined Markdown processing and efficient Jinja2 templating, significantly reducing build times.
-
-### 2. Cleaner Templates
-Templates are now more modular and minimal, with simplified Jinja2 syntax for easier customization and maintenance.
-
-### 3. Homepage Visibility via Tags
-Control homepage visibility with tags. Add `home` to frontmatter:
+This creates `content/note/my-first-post.md`:
 
 ```markdown
 ---
-tags: [home]
+title: "My first post"
+description: ""
+date: 2026-10-05
+tags: [note]
+draft: true
 ---
+
+Start writing here.
 ```
 
-Filter in `home_template.html`:
+The part between the `---` lines is the **frontmatter**: settings for this page. Everything below it is your post, written in Markdown.
 
-```html
-{% for page in pages if 'home' in page.tags %}
-  <a href="{{ page.url }}">{{ page.title }}</a>
-{% endfor %}
-```
+A new post starts as a **draft**: `rynz serve` shows it, `rynz build` leaves it out. Delete the `draft: true` line when you want to publish it.
 
-### 4. Custom Metadata
-Add per-page metadata:
+**Posts and pages.** A file with the `note` tag is a *post*: it appears in the list on your home page and in the RSS feed. A file without it is a *page*, like an About page: it gets built, but isn't listed.
 
-```yaml
-meta: '<link rel="stylesheet" href="/extra.css">'
-```
+### Frontmatter fields
 
-Render in templates:
+Only `title` is needed. Everything else is optional.
 
-```html
-{{ page.meta | safe }}
-```
+| Field | What it does | Example |
+| --- | --- | --- |
+| `title` | Page title | `title: "Hello"` |
+| `description` | One line shown in search results, social previews and the feed | `description: "Why I self-host"` |
+| `date` | When it was first published | `date: 2026-10-05` |
+| `updated` | When you last changed it meaningfully | `updated: 2026-11-01` |
+| `tags` | Tags; `note` makes it a post | `tags: [note, linux]` |
+| `draft` | Leave it out of `rynz build` | `draft: true` |
+| `slug` | Change the file name in the URL | `slug: hello` |
+| `template` | Use a different template for this page | `template: wide.html` |
+| `image` | Image for social previews | `image: /img/cover.png` |
+| `aliases` | Old URLs that should redirect here | `aliases: [old-name]` |
+| `noindex` | Ask search engines to skip it | `noindex: true` |
+| `nofeed` | Keep a post out of the feed | `nofeed: true` |
+| `toc` | Show a table of contents | `toc: true` |
+| `head` | Extra HTML for this page's `<head>` | `head: '<meta name="x" content="y">'` |
 
-### 5. Extended Configuration
-Add custom keys to `config.yml`:
-
-```yaml
-analytics_id: UA-XXXXX-Y
-```
-
-Use in templates:
-
-```html
-<script src="https://analytics.com/{{ config.get('analytics_id') }}"></script>
-```
-
-## Example
-
-Explore a live Rynz-generated site:  
-[https://nih.ar](https://nih.ar)
-[https://rynz.de](https://rynz.de)
-
-View its source:  
-[https://gitlab.com/niharokz/nih.ar](https://gitlab.com/niharokz/nih.ar)
-
-## Changelog
-
-### v1.0.0 (April 2025) - Major Release
-- **New CLI Commands**: Introduced `create`, `add`, `deploy`, `serve`, `config`, `test`, and `save` for a streamlined workflow.
-- **Faster Page Generation**: Optimized Markdown processing and Jinja2 rendering for significantly reduced build times.
-- **Cleaner Templates**: Simplified and modularized Jinja2 templates for easier customization.
-- **Config Command**: Added `rynz config` to view/edit `config.yml`.
-- **Test Command**: Added `rynz test` to validate project setup and structure.
-- **Save Command**: Added `rynz save` to easily commit changes using Git.
-- **Removed RSS Support**: Eliminated RSS feed generation and `rss_enabled` option for a leaner feature set.
-- **Improved CLI**: Enhanced help output and error handling with `rich`.
-- **Python Support**: Added compatibility for Python 3.11+.
-- **Bug Fixes**: Resolved edge cases in frontmatter parsing and template rendering.
-
-### v0.9.9 (Beta)
-- Replaced `showInHome` with tag-based homepage visibility.
-- Improved CLI error handling with color-coded output.
-- Optimized build performance and modularity.
-
-### v0.9.8 (Beta)
-- Added custom port support for `serve`.
-- Auto-handled `/abc` → `/abc.html` in dev server.
-- Supported metadata injection via `meta` tag.
-- Improved Windows compatibility.
-
-See [CHANGELOG.md](CHANGELOG.md) for full details.
-
-## Contributing
-
-Contributions are welcome! To contribute:
-
-1. Fork the repository.
-2. Create a feature branch:
-   ```bash
-   git checkout -b feature/my-feature
-   ```
-3. Commit changes:
-   ```bash
-   git commit -m "Add my feature"
-   ```
-4. Push to the branch:
-   ```bash
-   git push origin feature/my-feature
-   ```
-5. Open a pull request.
-
-### Code Style
-- Follow [PEP 8](https://www.python.org/dev/peps/pep-0008/) for Python.
-- Run tests:
-   ```bash
-   python -m unittest discover
-   ```
-
-## License
-
-Licensed under the MIT License. See [LICENSE](LICENSE) for details.
-
-## Contact
-
-- **Maintainer**: Nihar (hi@nihars.com)
-- **Repository**: [https://gitlab.com/niharokz/rynz](https://gitlab.com/niharokz/rynz)
-- **Issues**: [https://gitlab.com/niharokz/rynz/-/issues](https://gitlab.com/niharokz/rynz/-/issues)
+Any other field you add is kept and available in templates as `page.extra.<name>`.
 
 ---
 
-*Built with ❤️ using Python and Jinja2. Star the repo if Rynz sparks joy!*
+## Project layout
+
+```text
+my-site/
+├── config.yml        site settings
+├── content/          your writing
+│   ├── home.md       text at the top of the home page
+│   ├── about.md      a page  → about.html
+│   └── note/         posts (any folder depth works)
+│       └── hello-world.md
+├── data/             YAML files available to templates as site.data
+├── static/           files copied as-is: images, CSS, favicon
+├── template/         your own templates (override the theme's)
+└── public/           the built site — created by `rynz build`
+```
+
+---
+
+## Configuration
+
+`config.yml` needs just two lines:
+
+```yaml
+title: My site
+url: https://example.com
+```
+
+Everything else has a sensible default. Here is a fuller example with the common options:
+
+```yaml
+title: My site
+url: https://example.com
+description: Notes on Linux, homelabs and banking software.
+author: Your Name
+language: en
+image: /img/card.png        # default social preview image
+theme: default
+
+menu:                        # links in the header
+  - name: about
+    url: /about.html
+footer_menu:                 # links in the footer
+  - name: feed
+    url: /rss.xml
+
+urls: flat                   # flat: /about.html · clean: /about · pretty: /about/
+tags: true                   # a page per tag at /tag/<name>.html
+archive: true                # /archive.html with posts grouped by year
+gemini: false                # also build a Gemini capsule
+
+markdown:
+  highlight:
+    style: monokai           # any Pygments style name
+```
+
+### All options
+
+| Option | Default | What it does |
+| --- | --- | --- |
+| `title`, `url` | — | Required |
+| `description`, `author`, `email`, `language`, `image` | empty, `en` | Used in meta tags and the feed |
+| `theme` | none | `default`, or a path to your own theme folder |
+| `menu`, `footer_menu` | `[]` | Lists of `{name, url}` links |
+| `urls` | `flat` | How pages are linked: `flat`, `clean` or `pretty` |
+| `paths.content` / `templates` / `static` / `output` / `data` | `content`, `template`, `static`, `public`, `data` | Folder names |
+| `partials.home` / `header` / `footer` | `content/home.md` … | Markdown snippets used by templates |
+| `templates.home` / `note` / `list` | `home.html`, `note.html`, `list.html` | Which templates to use |
+| `posts.tag` | `note` | The tag that makes a page a post |
+| `markdown.extras` | tables, footnotes, fenced code… | [markdown2 extras](https://github.com/trentm/python-markdown2/wiki/Extras) to enable |
+| `markdown.highlight` | on, `monokai` | Code highlighting; `highlight: false` turns it off |
+| `markdown.strip_classes` | `true` | Remove the CSS classes Markdown adds |
+| `markdown.lazy_images` | `true` | Add `loading="lazy"` and image sizes |
+| `feed` | on, `rss.xml` | `output`, `limit`, `full_content`, `tag_feeds` |
+| `sitemap`, `robots` | on | `sitemap.xml` and `robots.txt` |
+| `tags`, `archive`, `opml`, `gemini` | off | Extra pages; set to `true` to turn on |
+| `redirects` | on | Redirect pages for `aliases:` |
+| `reading_speed` | `200` | Words per minute for reading time |
+| `plugins` | `[]` | Your plugins (see [Plugins](#plugins)) |
+
+Run `rynz config` to see every value your site is actually using.
+
+---
+
+## Commands
+
+| Command | What it does |
+| --- | --- |
+| `rynz new my-site` | Start a new site in `my-site/` |
+| `rynz add "Title"` | Create a new post (as a draft) |
+| `rynz serve` | Preview at http://127.0.0.1:5555; rebuilds when you save. `-p 8080` for another port |
+| `rynz build` | Build the site into `public/`. `--drafts`, `--incremental`, `--check` |
+| `rynz check` | Find broken links, missing titles and images without alt text |
+| `rynz config` | Show your full configuration and check it for mistakes |
+| `rynz migrate` | Upgrade a rynz 1.x `config.yml` to the new key names |
+| `rynz init-ci gitlab` | Write a deploy file: `gitlab`, `cloudflare` or `rsync` |
+
+Add `-q` for quiet output or `--verbose` for every step. `rynz -C path/to/site build` runs in another folder.
+
+---
+
+## Templates and themes
+
+rynz looks for each template in this order:
+
+1. your `template/` folder
+2. the theme named in `config.yml`
+3. rynz's built-in templates
+
+So to change one thing, copy just that file into `template/` and edit it. To change the look, put your own `nss.css` in `static/`.
+
+The default theme's files are `base.html`, `home.html`, `note.html`, `list.html`, `partials/head.html`, `partials/nav.html`, `partials/footer.html`, `feed.xml`, `sitemap.xml` and `robots.txt`.
+
+### What templates can use
+
+| Variable | Contains |
+| --- | --- |
+| `page.title`, `page.description`, `page.date`, `page.updated`, `page.tags` | From frontmatter |
+| `page.html` | The page's content as HTML |
+| `page.url`, `page.permalink` | Link (`/about.html`) and full address |
+| `page.toc`, `page.reading_time`, `page.words` | Table of contents, minutes, word count |
+| `page.prev`, `page.next` | Older and newer post |
+| `site.posts`, `site.pages` | Every post / every page, newest first |
+| `site.tags`, `site.years` | Posts grouped by tag / by year |
+| `site.data.<file>` | Contents of `data/<file>.yml` |
+| `site.home`, `site.header`, `site.footer` | The Markdown snippets, as HTML |
+| `config` | Everything in `config.yml` |
+
+Filters: `date("%d %b %Y")`, `iso`, `rfc822`, `xml`, `absolute_url`.
+
+---
+
+## Plugins
+
+A plugin is a Python file with a `register` function. List it in `config.yml`:
+
+```yaml
+title: My site
+url: https://example.com
+plugins:
+  - plugins/humans.py
+```
+
+`plugins/humans.py`:
+
+```python
+def register(rynz):
+    @rynz.generator
+    def humans(site, render):
+        yield "humans.txt", f"Written by {site.config['author']}\n"
+
+    @rynz.hook("html")
+    def highlight_todos(html, page, site):
+        return html.replace("TODO", "<mark>TODO</mark>")
+```
+
+| Hook | Runs | Arguments |
+| --- | --- | --- |
+| `config` | after config.yml is read | `config` |
+| `page` | after a page's frontmatter is read | `page, site` |
+| `html` | after Markdown becomes HTML; return the new HTML | `html, page, site` |
+| `site` | after posts and tags are collected | `site` |
+| `context` | before a page's template renders | `context, page, site` |
+| `done` | after every file is written | `site, written` |
+
+Also available: `@rynz.generator` to add files (yield `path, content`) and `@rynz.filter("name")` to add a template filter. rynz's own feed, sitemap, tags, archive, redirects, OPML and Gemini output are built with this same API; see `rynz/features/` for examples.
+
+---
+
+## Deploying
+
+`rynz init-ci` writes a ready-to-use deploy file:
+
+| Where | Command | Notes |
+| --- | --- | --- |
+| GitLab Pages | `rynz init-ci gitlab` | Builds and publishes on every push to your main branch |
+| Cloudflare Workers | `rynz init-ci cloudflare` | Add `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` as CI variables |
+| Your own server | `rynz init-ci rsync` | Then `DEST=user@host:/srv/www ./deploy.sh` |
+
+Every option runs `rynz build --check` first, so a broken link stops the deploy.
+
+---
+
+## Upgrading from rynz 1.x
+
+Your 1.x site builds with 2.0 as it is. rynz prints a warning listing the old config keys, and pages come out the same except for intended fixes:
+
+- Markdown tables, fenced code and lists directly under a bold line now render properly.
+- Headings get `id`s, so you can link to them.
+- The feed's `<description>` is filled from your config.
+- `sitemap.xml` and `robots.txt` are added.
+
+When you're ready, run:
+
+```bash
+rynz migrate
+```
+
+It renames the old keys in `config.yml` (keeping your comments) and saves a backup as `config.yml.bak`. Renamed commands: `create` → `new`, `deploy` → `build`, `test` → `check`. The old names still work in 2.0. `rynz save` was removed; use git directly.
+
+---
+
+## FAQ
+
+**Does the output really have no JavaScript?** Yes. Not on your pages, not in `rynz serve`. That's why you refresh the browser yourself after a rebuild.
+
+**Why does code highlighting use `style=""` instead of classes?** So highlighted code works with class-free stylesheets. Turn it off with `markdown: {highlight: false}`.
+
+**Can I use my own CSS framework?** Yes. Put your stylesheet in `static/` and your templates in `template/`.
+
+**Where do I report a bug?** At [gitlab.com/niharokz/rynz/-/issues](https://gitlab.com/niharokz/rynz/-/issues).
+
+---
+
+[Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · MIT License · made by [Nihar](https://nih.ar)

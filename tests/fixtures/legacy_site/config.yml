@@ -1,0 +1,20 @@
+
+# Mandatory Configuration
+title: legacy
+url: https://legacy.example
+note_template: template/note_template.html
+home_template: template/home_template.html
+feed_template: template/feed_template.xml
+home_path: public
+content_path: content
+resource_path: static
+home_md: content/home.md
+header_md: content/header.md
+footer_md: content/footer.md
+
+# Optional Configuration
+site-title: legacy
+css: demo.css
+desc: Write anything that human and machine can understand.
+mail: some@mail.com
+pht: logo.png

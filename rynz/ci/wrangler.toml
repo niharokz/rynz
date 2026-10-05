@@ -1,0 +1,8 @@
+# Cloudflare Workers static assets: `npx wrangler deploy` uploads the built site.
+name = "{{ name }}"
+compatibility_date = "2026-10-01"
+
+[assets]
+directory = "./{{ output }}"
+not_found_handling = "404-page"
+html_handling = "auto-trailing-slash"

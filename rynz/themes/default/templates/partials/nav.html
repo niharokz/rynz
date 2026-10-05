@@ -1,0 +1,8 @@
+<nav>
+{% if config.menu %}
+{% for item in config.menu %}<a href="{{ item.url }}"{% if item.url == page.url %} aria-current="page"{% endif %}>{{ item.name }}</a>
+{% endfor %}
+{% else %}
+{{ site.header | replace("<p>", "") | replace("</p>", "") }}
+{% endif %}
+</nav>

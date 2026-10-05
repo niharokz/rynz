@@ -1,0 +1,28 @@
+{% set desc = page.description or config.description %}
+{% set img = page.image or config.image %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page.slug != "index" %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+{% if desc %}<meta name="description" content="{{ desc | e }}">
+{% endif %}
+<link rel="canonical" href="{{ page.permalink }}">
+{% if page.noindex %}<meta name="robots" content="noindex">
+{% endif %}
+<meta property="og:title" content="{{ page.title | e }}">
+<meta property="og:type" content="{{ 'website' if page.slug == 'index' else 'article' }}">
+<meta property="og:url" content="{{ page.permalink }}">
+{% if desc %}<meta property="og:description" content="{{ desc | e }}">
+{% endif %}
+{% if img %}<meta property="og:image" content="{{ img if '://' in img else img | absolute_url }}">
+<meta name="twitter:card" content="summary_large_image">
+{% else %}<meta name="twitter:card" content="summary">
+{% endif %}
+{% if page.date %}<meta property="article:published_time" content="{{ page.date | iso }}">
+{% endif %}
+{% if page.updated %}<meta property="article:modified_time" content="{{ page.updated | iso }}">
+{% endif %}
+<meta name="generator" content="{{ site.generator }}">
+<link rel="stylesheet" href="/nss.css">
+{% if config.feed.enabled %}<link rel="alternate" type="application/rss+xml" title="{{ site.title | e }}" href="/{{ config.feed.output }}">
+{% endif %}
+{{ page.head }}

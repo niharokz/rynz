@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en-IN" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content=" {{ config.get('desc') }} ">
+<title>{{ config.get('site-title') }}</title>
+<link rel="stylesheet" href="{{ config.get('css') }}">
+<link rel="alternate" type="application/atom+xml" title="Recent blog posts" href="/rss.xml">
+</head>
+<body>
+<header>
+<h1><a href="/">{{ title | lower }}</a></h1>
+{{ header }}
+</header>
+<section>
+{{ article }}
+<ul>
+{% for post in posts %}
+  {% if "note" in post.tags %}
+    <li>{{ post.date.strftime('%d %m %Y') }} ; <a href="{{ post.url }}">{{ post.title | lower }}</a></li>
+  {% endif %}
+{% endfor %}
+{% if nextpage %} <a href="{{ nextpage }}">Older Notes >> </a> {% endif %}
+</ul>
+</section>
+<footer>
+{{ footer }}
+</footer>
+</body>
+</html>

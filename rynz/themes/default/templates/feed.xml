@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>{{ feed_title | xml }}</title>
+<link>{{ site.url }}/</link>
+<description>{{ (feed_description or feed_title) | xml }}</description>
+<language>{{ config.language }}</language>
+<lastBuildDate>{{ feed_updated | rfc822 }}</lastBuildDate>
+<generator>{{ site.generator }}</generator>
+<atom:link href="{{ feed_url }}" rel="self" type="application/rss+xml"/>
+{% for post in feed_posts %}
+<item>
+<title>{{ post.title | xml }}</title>
+<link>{{ post.permalink }}</link>
+<guid isPermaLink="true">{{ post.permalink }}</guid>
+{% if post.date %}<pubDate>{{ post.date | rfc822 }}</pubDate>
+{% endif %}
+{% for tag in post.tags if tag != config.posts.tag %}<category>{{ tag | xml }}</category>
+{% endfor %}
+<description>{{ (post.html if full_content else (post.description or post.title)) | xml }}</description>
+</item>
+{% endfor %}
+</channel>
+</rss>

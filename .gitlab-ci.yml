@@ -1,13 +1,28 @@
-image: python:3.10
-
 stages:
-  - deploy
+  - test
+  - release
 
-deploy:
-  stage: deploy
+.test:
+  stage: test
   script:
-    - pip install build twine requests
+    - pip install --quiet -e ".[dev]"
+    - pytest -q
+
+test:
+  extends: .test
+  image: python:${PYTHON}
+  parallel:
+    matrix:
+      - PYTHON: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+
+release:
+  stage: release
+  image: python:3.13
+  script:
+    - pip install --quiet build twine
     - python -m build
-    - python -c "import requests, sys, pathlib; version = pathlib.Path('rynz/__init__.py').read_text().split('__version__ = ')[1].split('\"')[1]; res = requests.get(f'https://pypi.org/pypi/rynz/json'); sys.exit(0) if version in res.json()['releases'] else None"
-    - twine upload dist/* -u __token__ -p $PYPI_TOKEN
+    - twine check dist/*
+    - twine upload --skip-existing -u __token__ -p "$PYPI_TOKEN" dist/*
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
   environment: production

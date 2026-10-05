@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<title>{{ post_title }}</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content=" {{ post_subtitle }} ">
+<link rel="stylesheet" href="{{ config.get('css') }}">
+<link rel="alternate" type="application/atom+xml" title="Recent blog posts" href="/rss.xml">
+</head>
+<body>
+<header>
+<h1>{{ post_title }}</h1>
+</header>
+<article>
+{{ article }}
+{% if date %}
+<p># Last updated on <time>{{ date.strftime('%d %b %Y') }}.</time></p>
+{% endif %}
+</article>
+<footer>
+{{ footer }}
+</footer>
+</body>
+</html>

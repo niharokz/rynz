@@ -1,0 +1,15 @@
+# Build with rynz and publish on GitLab Pages on every push to the default branch.
+image: python:3.13-slim
+
+pages:
+  script:
+    - pip install --quiet rynz
+    - rynz build --check
+{%- if output != "public" %}
+    - rm -rf public && mv {{ output }} public
+{%- endif %}
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

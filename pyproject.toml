@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rynz"
+dynamic = ["version"]
+description = "A small static site generator: Markdown in, plain HTML out, no JavaScript."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Nihar", email = "hi@nihars.com" }]
+keywords = ["static site generator", "markdown", "jinja2", "blog", "no-javascript"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Internet :: WWW/HTTP :: Site Management",
+    "Topic :: Text Processing :: Markup :: Markdown",
+]
+dependencies = [
+    "markdown2>=2.5",
+    "Jinja2>=3.1",
+    "PyYAML>=6.0",
+    "rich>=13",
+    "Pygments>=2.17",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "build", "twine"]
+
+[project.urls]
+Homepage = "https://rynz.de"
+Source = "https://gitlab.com/niharokz/rynz"
+Issues = "https://gitlab.com/niharokz/rynz/-/issues"
+Changelog = "https://gitlab.com/niharokz/rynz/-/blob/master/CHANGELOG.md"
+
+[project.scripts]
+rynz = "rynz.cli:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = { attr = "rynz.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["rynz*"]
+
+[tool.setuptools.package-data]
+rynz = ["themes/**/*", "scaffold/**/*", "scaffold/project/gitignore", "ci/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

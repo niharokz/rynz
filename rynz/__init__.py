@@ -1,25 +1,8 @@
-#!/bin/python
+"""rynz — Really Your Note Zenerator.
 
-#
-#       ███╗   ██╗██╗██╗  ██╗ █████╗ ██████╗ ███████╗
-#       ████╗  ██║██║██║  ██║██╔══██╗██╔══██╗██╔════╝
-#       ██╔██╗ ██║██║███████║███████║██████╔╝███████╗
-#       ██║╚██╗██║██║██╔══██║██╔══██║██╔══██╗╚════██║
-#       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
-#       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
-#       DRAFTED BY [https://nih.ar] ON 14-04-2025
-#       SOURCE [__init__.py] LAST MODIFIED ON 29-04-2025.
-#
-
-"""
-Module for versioning of the rynz package.
-
-This module defines the version number for the rynz static site generator
-and provides a function to retrieve the current version.
+A small static site generator: Markdown in, plain HTML out, no JavaScript.
 """
 
-__version__ = "1.0.1"
+__version__ = "2.0.0"
 
-def get_version():
-    """Returns the current version of the rynz package."""
-    return __version__
+__all__ = ["__version__"]

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+{% if sitemap_url %}
+Sitemap: {{ sitemap_url }}
+{% endif %}

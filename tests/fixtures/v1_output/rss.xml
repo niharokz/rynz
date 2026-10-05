@@ -1,0 +1,66 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>legacy</title>
+    <atom:link href="https://legacy.example/rss.xml" rel="self" type="application/rss+xml" />
+    <link>https://legacy.example/rss.xml</link>
+    <description></description>
+    <lastBuildDate>Tue, 24 Mar 2026 00:00:00 GMT</lastBuildDate>
+    <language>en-IN</language>
+    <image>
+      <url>https://legacy.example/logo.png</url>
+      <title>legacy</title>
+      <link>https://legacy.example/rss.xml</link>
+      <width>32</width>
+      <height>32</height>
+    </image>
+    
+        
+    
+        
+            <item>
+            <title>Speed up your CLI</title>
+            <link>https://legacy.example/code_post.html</link>
+            <pubDate>Sun, 09 Jun 2024 00:00:00 GMT</pubDate>
+            <guid isPermaLink="false">https://legacy.example/code_post.html</guid>
+            <description><![CDATA[Aliases that save time - <p>Aliases are shortcuts.</p>
+
+<h2>Basic aliases</h2>
+
+<p><code>bash
+alias c='clear'
+alias g='git'
+</code></p>
+
+<p>Use <code>exa</code> instead of <code>ls</code>. See <a href="/other">the docs</a>.</p>
+
+<p>| alias | does |
+|---|---|
+| c | clear |</p>
+ ]]></description>
+            </item>
+        
+    
+        
+            <item>
+            <title>Hello World</title>
+            <link>https://legacy.example/older.html</link>
+            <pubDate>Mon, 06 Jun 2016 00:00:00 GMT</pubDate>
+            <guid isPermaLink="false">https://legacy.example/older.html</guid>
+            <description><![CDATA[first post - <p>Welcome to my blog. A simple paragraph, and a list:</p>
+
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+
+<blockquote>
+  <p>a quote</p>
+</blockquote>
+ ]]></description>
+            </item>
+        
+    
+  </channel>
+</rss>

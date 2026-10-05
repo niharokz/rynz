@@ -1,0 +1,8 @@
+<nav>
+{% if config.footer_menu %}
+{% for item in config.footer_menu %}<a href="{{ item.url }}">{{ item.name }}</a>
+{% endfor %}
+{% else %}
+{{ site.footer | replace("<p>", "") | replace("</p>", "") }}
+{% endif %}
+</nav>
